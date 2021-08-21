@@ -1,12 +1,12 @@
-import { colors } from "../../stylesjs/theme";
+import { colors } from '../../stylesjs/theme';
 
-export default function Button ({ children, onClick }) {
-  return (
-    <>
-      <button onClick={onClick}>
-        {children}
-      </button>
-      <style jsx>{`
+export default function Button ({ children, onClick, disabled }) {
+	return (
+		<>
+			<button disabled={disabled} onClick={onClick}>
+				{children}
+			</button>
+			<style jsx>{`
         button {
           align-items: center;
           background: ${colors.black};
@@ -20,6 +20,11 @@ export default function Button ({ children, onClick }) {
           padding: 8px 24px;
           transition: opacity .3s ease;
         }
+
+        button[disabled]{
+          opacity: 0.2;
+          pointer-events: none; 
+        }
         
         button > :global(svg) {
           margin-right: 8px;
@@ -28,6 +33,6 @@ export default function Button ({ children, onClick }) {
           opacity: .7;
         }
       `}</style>
-    </>
-  )
+		</>
+	);
 }

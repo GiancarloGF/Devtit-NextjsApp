@@ -1,62 +1,62 @@
-import {useEffect, useState} from 'react'
-import Head from 'next/head'
-import Layout from '../components/Layout'
-import { colors } from '../stylesjs/theme'
-import Button from '../components/Button'
-import GitHub from '../components/Icons/GitHub'
-
-import {
-  loginWithGitHub,
-  onAuthStateChanged
-} from '../firebase/client'
+import {useEffect, useState} from 'react';
+import Head from 'next/head';
+import Layout from 'components/Layout';
+import { colors } from 'stylesjs/theme';
+import Button from 'components/Button';
+import GitHub from 'components/Icons/GitHub';
+import Avatar from 'components/Avatar/index';
+import Logo from 'components/Icons/Logo';
+import router from 'next/router';
+import useUser, { USER_STATES } from 'hooks/useUser';
+import {loginWithGitHub,} from 'firebase/client';
 
 export default function Home() {
-  const [user, setUser] = useState(undefined)
-  
-  useEffect(() => {
-    onAuthStateChanged(user=>setUser(user))
-  }, [])
+	const user = useUser();
+	
 
-  const handleClick = () => {
-    loginWithGitHub().then(user=>setUser(user)).catch(err => {
-      console.log(err)
-    })
-  }
+	//Cuando se cambia el usuario, validamos que este logeado, si lo esta, nos reenvia al home.
+	useEffect(()=>{
+		user && router.replace('/home');
+	},[user]);
 
-  return (
-    <>
-      <Head>
-        <title>devter 🐦</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+	const handleClick = () => { // (1)
+		loginWithGitHub().catch(err => {
+			console.log(err);
+		});
+	};
 
-      <Layout>
-        <section>
-          <img src='/devter-logo.png' alt='Logo' />
-          <h1>Devter</h1>
-          <h2>Talk about development<br />with developers 👩‍💻👨‍💻</h2>
+	return (
+		<>
+			<Head>
+				<title>devter 🐦</title>
+				<link rel="icon" href="/favicon.ico" />
+			</Head>
+
+			<Layout>
+				<section>
+					<Logo width='100'/>
+					<h1>Devter</h1>
+					<h2>Talk about development<br />with developers 👩‍💻👨‍💻</h2>
 
 
-          <div>
-            {
-              user === null &&
-                <Button onClick={handleClick}>
-                  <GitHub fill='#fff' width={24} height={24} />
-                  Login with GitHub
-                </Button>
-            }
-            {
-              user && user.avatar && <div>
-                <img src={user.avatar} />
-                <strong>{user.username}</strong>
-              </div>
-            }
-          </div>
+					<div>
+						{
+							user === null &&
+						<Button onClick={handleClick}>
+							<GitHub fill='#fff' width={24} height={24} />
+							Login with GitHub
+						</Button>
+						}
+						{
+							// Si esta cargando y aun no tenemos datos, me muestra un loader en home.
+							user ===undefined && <img src='spinner.gif'/>
+						}
+					</div>
           
-        </section>
-      </Layout>
+				</section>
+			</Layout>
 
-      <style jsx>{`
+			<style jsx>{`
         img {
           width: 120px;
         }
@@ -70,8 +70,9 @@ export default function Home() {
           place-items: center;
         }
         h1 {
-          color: ${colors.secondary};
+          color: ${colors.primary};
           font-weight: 800;
+		  font-size: 32px;
           margin-bottom: 16px;
         }
         h2 {
@@ -80,6 +81,17 @@ export default function Home() {
           margin: 0;
         }
       `}</style>
-    </>
-  )
+		</>
+	);
 }
+
+/* 1
+Codigo inicial:
+const handleClick = () => { // (1)
+		loginWithGitHub().then((user)=>setUser(user)).catch(err => {
+			console.log(err);
+		});
+	};
+
+- Se elimino el metodo then() debido a que ya se hace el setUser en el onAuthStateChanged en un useEffect.
+ */
