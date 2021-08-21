@@ -14,7 +14,7 @@ const firebaseConfig = {
 !firebase.apps.length &&
   firebase.initializeApp(firebaseConfig);//Si no tenemos otra app de firebase corriendo, entonces inicializa una.
 
-const db = firebase.firestore()
+const db = firebase.firestore();
 
 const mapUserFromFirebaseAuthToUser = (user) => {
 	const {displayName, email, photoURL,uid } = user;
@@ -47,10 +47,11 @@ export const loginWithGitHub = () => { //(2)
 
 
 
-export const addDevit = ({ avatar, content, userId, userName }) => { //4
+export const addDevit = ({ avatar, content, userId, userName, img }) => { //4
 	return db.collection('devits').add({// devuelve una promesa.
 		avatar,
 		content,
+		img,
 		userId,
 		userName,
 		createdAt: firebase.firestore.Timestamp.fromDate(new Date()),//Timestamp compatible con firestore con la fecha actual.
@@ -61,24 +62,34 @@ export const addDevit = ({ avatar, content, userId, userName }) => { //4
 
 
 export const fetchLatestDevits=()=>{
-	return db.collection('devits').get().then(({docs})=>{
+	return db.collection('devits')
+		.orderBy('createdAt', 'desc') //Para ordenar los devits por fecha de creacion.
+		.get()
+		.then(({docs})=>{
 	
-		return docs.map(doc=>{
-			const data=doc.data(); //Nos trae la data no procesada. No devuelve el id.
-			const id=doc.id; // Nos trae el id que se encuentra solo.
-			const {createdAt}=data;
-			const date = new Date(createdAt.seconds * 1000)//A new date se le pasan milisegundos. Si tienes segundos, se tiene que convertir.
-       		const normalizedCreatedAt = new Intl.DateTimeFormat("es-ES").format(date)
+			return docs.map(doc=>{
+				const data=doc.data(); //Nos trae la data no procesada. No devuelve el id.
+				const id=doc.id; // Nos trae el id que se encuentra solo.
+				const {createdAt}=data;
+				// const date = new Date(createdAt.seconds * 1000);//A new date se le pasan milisegundos. Si tienes segundos, se tiene que convertir.
+       		// const normalizedCreatedAt = new Intl.DateTimeFormat('es-ES').format(date);
 
-			return {
-			...data,
-			id,
-			createdAt: normalizedCreatedAt,
-			}
-			})
+				return {
+					...data,
+					id,
+					createdAt: +createdAt.toDate(),
+				};
+			});
 
-	})
-}
+		});
+};
+
+//PAra cargar imaganes a firebase.
+export const uploadImage=(file)=>{
+	const ref= firebase.storage().ref(`images/${file.name}`);
+	const task=ref.put(file);
+	return task;
+};
 
 {/** 1
 Devuelve una promesa.
@@ -102,6 +113,6 @@ db.collection('[nombre de coleccion]').add([objeto a enviar])
 
  */}
 
- {/**5
+{/**5
 	Nos devuelve una promesa, pero son datos objetos complejos que se deben de procesar.
  */}

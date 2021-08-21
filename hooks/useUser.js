@@ -12,11 +12,11 @@ export default function useUser() {
 	const router = useRouter();
 
 	useEffect(() => {
-		onAuthStateChanged((user)=>setUser(user));
+		onAuthStateChanged(setUser); //Se actualiza el estado luego del logueo.
 	}, []);
 
 	useEffect(() => {
-		user === USER_STATES.NOT_LOGGED && router.push('/');
+		user === USER_STATES.NOT_LOGGED && router.push('/'); //Si el usuario no esta logeado, lo redirigimos a /.
 	}, [user]);
 
 	return user;
