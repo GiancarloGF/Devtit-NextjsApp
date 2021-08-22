@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import Layout from 'components/Layout/index.js';
 import Button from 'components/Button';
 import useUser from 'hooks/useUser';
 import Head from 'next/head';
@@ -97,35 +96,35 @@ export default function ComposeTweet() {
 
 	return (
 		<>
-			<Layout>
-				<Head>
-					<title>Crear Devit</title>
-				</Head>
-				<section className="form-container"> 
-					{user && (
-						<section className="avatar-container">
-							<Avatar src={user.avatar} />
-						</section>
-					)}
-					<form onSubmit={handleSubmit}>
-						<textarea
-							onChange={handleChange}
-							onDragEnter={handleDragEnter}
-							onDragLeave={handleDragLeave}
-							onDrop={handleDrop}
-							placeholder="¿Qué esta pasando?"
-							value={message}
-						></textarea>
-						{imgURL&&(<section className="remove-img">
-							<button onClick={() => setImgURL(null)}>x</button>
-							<img src={imgURL} />
-						</section>)}
-						<div>
-							<Button disabled={isButtonDisabled}>Devitear</Button>
-						</div>
-					</form>
-				</section>
-			</Layout>
+			
+			<Head>
+				<title>Crear Devit</title>
+			</Head>
+			<section className="form-container"> 
+				{user && (
+					<section className="avatar-container">
+						<Avatar src={user.avatar} />
+					</section>
+				)}
+				<form onSubmit={handleSubmit}>
+					<textarea
+						onChange={handleChange}
+						onDragEnter={handleDragEnter}
+						onDragLeave={handleDragLeave}
+						onDrop={handleDrop}
+						placeholder="¿Qué esta pasando?"
+						value={message}
+					></textarea>
+					{imgURL&&(<section className="remove-img">
+						<button onClick={() => setImgURL(null)}>x</button>
+						<img src={imgURL} />
+					</section>)}
+					<div>
+						<Button disabled={isButtonDisabled}>Devitear</Button>
+					</div>
+				</form>
+			</section>
+			
 				
 			<style jsx>{`
 			div {

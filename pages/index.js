@@ -1,6 +1,5 @@
 import {useEffect, useState} from 'react';
 import Head from 'next/head';
-import Layout from 'components/Layout';
 import { colors } from 'stylesjs/theme';
 import Button from 'components/Button';
 import GitHub from 'components/Icons/GitHub';
@@ -34,29 +33,29 @@ export default function Home() {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<Layout>
-				<section>
-					<Logo width='100'/>
-					<h1>Devter</h1>
-					<h2>Talk about development<br />with developers 👩‍💻👨‍💻</h2>
+			
+			<section>
+				<Logo width='100'/>
+				<h1>Devter</h1>
+				<h2>Talk about development<br />with developers 👩‍💻👨‍💻</h2>
 
 
-					<div>
-						{
-							user === null &&
+				<div>
+					{
+						user === null &&
 						<Button onClick={handleClick}>
 							<GitHub fill='#fff' width={24} height={24} />
 							Login with GitHub
 						</Button>
-						}
-						{
-							// Si esta cargando y aun no tenemos datos, me muestra un loader en home.
-							user ===undefined && <img src='spinner.gif'/>
-						}
-					</div>
+					}
+					{
+						// Si esta cargando y aun no tenemos datos, me muestra un loader en home.
+						user ===undefined && <img src='spinner.gif'/>
+					}
+				</div>
           
-				</section>
-			</Layout>
+			</section>
+			
 
 			<style jsx>{`
         img {
