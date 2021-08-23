@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Devit from 'components/Devit';
 import useUser from 'hooks/useUser';
-import {fetchLatestDevits} from 'firebase/client';
+import {listenLatestDevits} from 'firebase/client';
 import Link from 'next/link';
 import Create from 'components/Icons/Create';
 import Home from 'components/Icons/Home';
@@ -14,7 +14,13 @@ export default function HomePage() {
 	const user = useUser(); 
 
 	useEffect(() => {
-		user && fetchLatestDevits().then(setTimeline); //Se pide a la bd (firestore) los ultimos devits.
+		let unsubscribe;
+		if(user){
+			unsubscribe =listenLatestDevits(setTimeline); //newDevit=>setTimeline(newDevits). Aqui se esta suscribiendo un evento, se debe de eliminar cada que se desmonta el app.
+		};
+		
+		//Limpiamos la susbscripcion. Es muy importante limpiar despues de suscripciones, fetch, setInterval, etc..
+		return ()=>{unsubscribe && unsubscribe();};
 	}, [user]);
 
 

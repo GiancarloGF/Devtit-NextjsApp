@@ -8,7 +8,7 @@ var serviceAccount = require('./firebase-keys.json'); //Objetos con muchos keys,
 try {
 	admin.initializeApp({
 		credential: admin.credential.cert(serviceAccount),
-		databaseURL: 'https://devter-1e5c1.firebaseio.com'
+		databaseURL: process.env.FIREBASE_DATABASE_URL,
 	});
   
 } catch (e) {
