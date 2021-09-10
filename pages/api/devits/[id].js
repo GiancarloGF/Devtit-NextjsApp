@@ -1,7 +1,7 @@
 //Ruta dinamica.
 import { firestore } from 'firebase/admin';
 
-const Devit=(request, response) => {
+export default (request, response) => {
 	const { query } = request;
 	const { id } = query;
 
@@ -24,5 +24,3 @@ const Devit=(request, response) => {
 			response.status(404).end();
 		});
 };
-
-export default Devit;

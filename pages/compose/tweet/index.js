@@ -5,7 +5,6 @@ import Head from 'next/head';
 import Avatar from 'components/Avatar';
 import { addDevit,uploadImage } from 'firebase/client';
 import { useRouter } from 'next/router';
-import Image from 'next/image';
 
 const COMPOSE_STATES = {
 	USER_NOT_KNOWN: 0,
@@ -118,7 +117,7 @@ export default function ComposeTweet() {
 					></textarea>
 					{imgURL&&(<section className="remove-img">
 						<button onClick={() => setImgURL(null)}>x</button>
-						<Image alt ="" src={imgURL} />
+						<img src={imgURL} />
 					</section>)}
 					<div>
 						<Button disabled={isButtonDisabled}>Devitear</Button>

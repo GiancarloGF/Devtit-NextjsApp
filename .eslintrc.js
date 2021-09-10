@@ -7,9 +7,7 @@ module.exports = {
 	'extends': [
 		'eslint:recommended',
 		'plugin:react/recommended',
-		
-		'prettier',
-		'next'
+		'prettier'
 	],
 	'parserOptions': {
 		'ecmaFeatures': {
@@ -19,10 +17,7 @@ module.exports = {
 		'sourceType': 'module'
 	},
 	'plugins': [
-		'react',
-		'react-hooks',
-		'jsx-a11y',
-		'import'
+		'react'
 	],
 	'rules': {
 		'indent': [
