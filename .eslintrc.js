@@ -6,9 +6,10 @@ module.exports = {
 	},
 	'extends': [
 		'eslint:recommended',
-		'plugin:react/jsx-runtime',
-		'prettier'
+		'plugin:react/recommended',
 		
+		'prettier',
+		'next'
 	],
 	'parserOptions': {
 		'ecmaFeatures': {
@@ -18,7 +19,10 @@ module.exports = {
 		'sourceType': 'module'
 	},
 	'plugins': [
-		'react'
+		'react',
+		'react-hooks',
+		'jsx-a11y',
+		'import'
 	],
 	'rules': {
 		'indent': [

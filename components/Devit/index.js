@@ -3,6 +3,7 @@ import useTimeAgo from 'hooks/useTimeAgo';
 import useDateTimeFormat from 'hooks/useDateTimeFormat';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 export default function Devit({ avatar, userName, content,img, id ,createdAt}) { 
 	const timeago=useTimeAgo(createdAt);
@@ -29,7 +30,7 @@ export default function Devit({ avatar, userName, content,img, id ,createdAt}) {
 						</Link>
           			</header>
 					   <p>{content}</p>
-					   {img&&<img src={img} />}
+					   {img&&<Image alt="" src={img} />}
 				</section>
 			</article>
 			<style jsx>{`

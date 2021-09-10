@@ -8,6 +8,7 @@ import GitHub from 'components/Icons/GitHub';
 import Logo from 'components/Icons/Logo';
 import router from 'next/router';
 import useUser from 'hooks/useUser';
+import Image from 'next/image';
 
 import {loginWithGitHub,} from 'firebase/client';
 
@@ -52,7 +53,7 @@ export default function Home() {
 					}
 					{
 						// Si esta cargando y aun no tenemos datos, me muestra un loader en home.
-						user ===undefined && <img src='spinner.gif'/>
+						user ===undefined && <Image alt="" src='spinner.gif'/>
 					}
 				</div>
           
