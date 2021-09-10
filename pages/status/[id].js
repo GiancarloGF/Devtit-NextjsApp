@@ -1,5 +1,5 @@
 // import Layout from 'components/layout/index.js';
-import Devit from 'components/Devit';
+// import Devit from 'components/Devit';
 import { firestore } from 'firebase/admin';
 import { useRouter } from 'next/router';
 
