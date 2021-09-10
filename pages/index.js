@@ -1,12 +1,14 @@
-import {useEffect, useState} from 'react';
+import {useEffect,
+	//  useState
+} from 'react';
 import Head from 'next/head';
 import { colors } from 'stylesjs/theme';
 import Button from 'components/Button';
 import GitHub from 'components/Icons/GitHub';
-import Avatar from 'components/Avatar/index';
 import Logo from 'components/Icons/Logo';
 import router from 'next/router';
-import useUser, { USER_STATES } from 'hooks/useUser';
+import useUser from 'hooks/useUser';
+
 import {loginWithGitHub,} from 'firebase/client';
 
 

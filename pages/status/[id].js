@@ -19,7 +19,7 @@ export default function DevitPage(props) {
 
 export async function getStaticPaths() {
 	return {
-		paths: [{ params: { id: '2v6O59t32Pr9Kxt1cykC' } }], //Lista de todas las urls que se tiene que generar. Podemos ponerla a mano o algun helper.
+		paths: [{ params: { id: '1cKgiz4m3lEjwwaEctB7' } }], //Lista de todas las urls que se tiene que generar. Podemos ponerla a mano o algun helper.
 		fallback: true, //Si no esta creado el archivo, se intenta crear el archivo con los datos que crearon los anteriores archivos estaticos.
 	};
 }
